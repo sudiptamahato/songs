@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AR Tunes - Premium Music App</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+</head>
+<body>
+    <div id="tsparticles"></div>
+    <div id="toast">Message</div>
+
+    <header>
+        <button class="icon-btn" onclick="toggleMenu()"><i class="ri-menu-2-line"></i></button>
+        <div class="logo">SM TUNES</div>
+        <div style="width: 24px;"></div> 
+    </header>
+
+    <div class="menu-dropdown" id="menuDropdown">
+        <a href="#" class="menu-item" onclick="toggleMenu()"><i class="ri-information-line"></i> About</a>
+        <a href="#" class="menu-item" onclick="toggleMenu()"><i class="ri-git-branch-line"></i> Version 1.0</a>
+        <a href="#" class="menu-item" onclick="toggleMenu()"><i class="ri-question-line"></i> Help</a>
+        <a href="#" class="menu-item" onclick="toggleMenu()" style="color: #ff5555"><i class="ri-close-circle-line"></i> Close</a>
+    </div>
+
+    <main>
+        <div id="home-view" class="page active">
+            <h2>Trending Bollywood Hits</h2>
+            <div class="horizontal-scroll" id="trending-container">
+                <div class="loader"><div class="spinner"></div></div>
+            </div>
+
+            <h2>New Indian Releases</h2>
+            <div class="song-list" id="new-releases-container">
+            </div>
+        </div>
+
+        <div id="search-view" class="page">
+            <div class="search-container">
+                <div class="search-box">
+                    <i class="ri-search-2-line"></i>
+                    <input type="text" id="search-input" placeholder="Search songs, artists...">
+                </div>
+            </div>
+            <div class="song-list" id="search-results">
+                <div style="text-align: center; color: var(--text-muted); margin-top: 50px;">
+                    <i class="ri-music-2-line" style="font-size: 3rem; margin-bottom: 10px; display:block;"></i>
+                    Type to search music
+                </div>
+            </div>
+        </div>
+
+        <div id="favorites-view" class="page">
+            <h2>Your Favorites</h2>
+            <div class="song-list" id="favorites-list">
+            </div>
+        </div>
+    </main>
+
+    <div id="mini-player" onclick="openFullPlayer()">
+        <img src="https://via.placeholder.com/100" class="mini-art" id="mini-art">
+        <div class="mini-info">
+            <div class="mini-title" id="mini-title">Select a song</div>
+            <div class="mini-artist" id="mini-artist">SM Tunes</div>
+        </div>
+        <button class="icon-btn" id="mini-play-btn" onclick="event.stopPropagation(); togglePlay()">
+            <i class="ri-play-fill"></i>
+        </button>
+    </div>
+
+    <nav class="bottom-nav">
+        <div class="nav-item active" onclick="switchTab('home')">
+            <i class="ri-home-4-line"></i>
+            <span>Home</span>
+        </div>
+        <div class="nav-item" onclick="switchTab('search')">
+            <i class="ri-search-line"></i>
+            <span>Search</span>
+        </div>
+        <div class="nav-item" onclick="switchTab('favorites')">
+            <i class="ri-heart-3-line"></i>
+            <span>Favorites</span>
+        </div>
+    </nav>
+
+    <div id="full-player">
+        <div class="fp-bg" id="fp-bg"></div>
+        
+        <div class="fp-header">
+            <button class="fp-close" onclick="closeFullPlayer()"><i class="ri-arrow-down-s-line"></i></button>
+            <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px;">Now Playing</div>
+            <button class="icon-btn" onclick="toggleMenu()"><i class="ri-more-2-fill"></i></button>
+        </div>
+
+        <div class="fp-content">
+            <div class="disk-container">
+                <img src="https://via.placeholder.com/300" class="disk-art" id="fp-art">
+            </div>
+
+            <div class="fp-info">
+                <div class="fp-title" id="fp-title">Song Title</div>
+                <div class="fp-artist" id="fp-artist">Artist Name</div>
+            </div>
+
+            <div style="display: flex; gap: 20px;">
+                <button class="icon-btn like-btn" id="fp-like-btn" onclick="toggleFavoriteCurrent()">
+                    <i class="ri-heart-line"></i>
+                </button>
+            </div>
+
+            <div class="progress-container">
+                <input type="range" id="seek-slider" value="0" max="100">
+                <div class="time-stamps">
+                    <span id="curr-time">0:00</span>
+                    <span id="total-time">0:00</span>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="ctrl-btn" id="shuffle-btn" onclick="toggleShuffle()"><i class="ri-shuffle-line"></i></button>
+                <button class="ctrl-btn" onclick="playPrev()"><i class="ri-skip-back-fill"></i></button>
+                <button class="play-btn-lg" id="fp-play-btn" onclick="togglePlay()"><i class="ri-play-fill"></i></button>
+                <button class="ctrl-btn" onclick="playNext()"><i class="ri-skip-forward-fill"></i></button>
+                <button class="ctrl-btn" id="repeat-btn" onclick="toggleRepeat()"><i class="ri-repeat-2-line"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <audio id="audio-player"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
